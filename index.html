@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Roxanne Only 💗</title>
+  <meta name="description" content="For Roxanne only 💌">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(#ffe6ea, #fff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Floating flowers */
+    .flower {
+      position: absolute;
+      font-size: 30px;
+      animation: float 10s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Valentine card */
+    .card {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: 320px;
+      animation: fadeIn 2s ease;
+      z-index: 10;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      color: #e63946;
+      margin-bottom: 10px;
+    }
+
+    /* Message section */
+    .message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 15px;
+      background: #fff5f7;
+      font-style: italic;
+      color: #444;
+      line-height: 1.5;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    /* Music link */
+    .music {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .music a {
+      text-decoration: none;
+      color: #e63946;
+    }
+    .music a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>🌹 For Roxanne Only 🌹</h1>
+
+    <div class="message">
+      Dear Roxanne,<br><br>
+      This is my little letter for you.  
+      You can write here anything you want to say to her 💌<br><br>
+      — Yours
+    </div>
+
+    <div class="music">
+      🎧 <a href="https://www.youtube.com/watch?v=dstuitW8PWM" target="_blank">
+        Play our song: “Happiness” by Rex Orange County
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating flowers -->
+  <div class="flower" style="left:10%; animation-delay:0s;">🌸</div>
+  <div class="flower" style="left:30%; animation-delay:2s;">🌷</div>
+  <div class="flower" style="left:50%; animation-delay:4s;">🌹</div>
+  <div class="flower" style="left:70%; animation-delay:1s;">🌸</div>
+  <div class="flower" style="left:90%; animation-delay:3s;">🌷</div>
+
+</body>
+</html>
