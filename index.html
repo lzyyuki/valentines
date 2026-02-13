@@ -33,7 +33,7 @@ body {
 
 @keyframes fadeIn { from { opacity:0; transform:scale(0.8);} to { opacity:1; transform:scale(1);} }
 
-h1 { color:#e63946; margin-bottom:20px; }
+h1, h2 { color:#e63946; margin-bottom:20px; text-align:center; }
 
 button {
   padding: 10px 20px;
@@ -47,15 +47,31 @@ button {
 #yes { background-color: #ff6699; color:white; }
 #no { background-color: #cccccc; color:black; position: relative; }
 
-.valentine-screen, .letter-screen {
+.slide {
   text-align: center;
-  position: relative;
   width: 90%;
   max-width: 400px;
 }
 
-.valentine-screen { z-index: 20; }
-.letter-screen { display: none; z-index: 10; }
+.valentine-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:20px; }
+
+/* Bounce animation for YES button */
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Floating hearts on 3rd slide */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatHeart 3s linear infinite;
+}
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(0.8); opacity:1; }
+  100% { transform: translateY(-200px) scale(1.2); opacity:0; }
+}
 
 .card {
   text-align: center;
@@ -85,22 +101,13 @@ button {
 }
 .music a { text-decoration:none; color:#e63946; }
 .music a:hover { text-decoration:underline; }
-
-.valentine-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:20px; }
-
-/* Bounce animation for YES button */
-@keyframes bounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
 </style>
 </head>
 
 <body>
 
-<!-- FIRST SCREEN -->
-<div class="valentine-screen">
+<!-- Slide 1 -->
+<div class="slide valentine-screen">
   <h1>Will you be my Valentine? 💖</h1>
   <div class="valentine-buttons">
     <button id="yes">YES</button>
@@ -108,8 +115,8 @@ button {
   </div>
 </div>
 
-<!-- LETTER SCREEN -->
-<div class="letter-screen">
+<!-- Slide 2 -->
+<div class="slide letter-screen" style="display:none;">
   <div class="card">
     <h1>🌹 For Roxanne Only 🌹</h1>
     <div class="message">
@@ -125,15 +132,25 @@ button {
       I’m serious about you. I’m not here to play, and I’m not here just for the easy days. I want to be here even when things feel heavy, even when you doubt yourself, even when you’re quiet. I want to court you properly and hopefully soon call you mine. 💌<br><br>
       — Your yuki lablab 🫶
     </div>
+
     <div class="music">
       🎧 <a href="https://www.youtube.com/watch?v=dstuitW8PWM" target="_blank">
         Play our song: “Happiness” by Rex Orange County
       </a>
     </div>
+
+    <!-- Button to go to Slide 3 -->
+    <button id="next3" style="margin-top:20px; padding:10px 20px; font-size:16px; border-radius:10px; background:#ff6699; color:white; cursor:pointer;">Next Surprise 🎉</button>
   </div>
 </div>
 
-<!-- Flowers -->
+<!-- Slide 3 -->
+<div class="slide slide3" style="display:none;">
+  <h2>YAYAYAYAYAYAYYYY!!! LOOKING FORWARD TO OUR JOURNEY LOVEYY !!! 💖💐</h2>
+  <img src="https://i.imgur.com/DdcMuCE.jpeg" alt="Yuki Bouquet" style="width:200px; max-width:80%; border-radius:15px;">
+</div>
+
+<!-- Floating flowers -->
 <div class="flower" style="left:10%; animation-delay:0s;">🌸</div>
 <div class="flower" style="left:30%; animation-delay:2s;">🌷</div>
 <div class="flower" style="left:50%; animation-delay:4s;">🌹</div>
@@ -145,6 +162,8 @@ const noBtn = document.getElementById('no');
 const yesBtn = document.getElementById('yes');
 const valentineScreen = document.querySelector('.valentine-screen');
 const letterScreen = document.querySelector('.letter-screen');
+const slide3 = document.querySelector('.slide3');
+const next3 = document.getElementById('next3');
 let noClickCount = 0;
 
 function moveNoButton(){
@@ -181,6 +200,22 @@ noBtn.addEventListener('touchstart', e=>{ e.preventDefault(); handleNoClick(); }
 yesBtn.addEventListener('click', ()=>{
   valentineScreen.style.display='none';
   letterScreen.style.display='block';
+});
+
+// Slide 2 → Slide 3
+next3.addEventListener('click', ()=>{
+  letterScreen.style.display='none';
+  slide3.style.display='block';
+
+  // Optional: floating hearts on slide3
+  for(let i=0;i<15;i++){
+    const heart = document.createElement('div');
+    heart.className='heart';
+    heart.textContent='💖';
+    heart.style.left=Math.random()*80+'%';
+    heart.style.animationDelay=Math.random()*2+'s';
+    document.body.appendChild(heart);
+  }
 });
 </script>
 
