@@ -103,15 +103,42 @@ button {
   text-align: left;
 }
 
-.music {
+/* Custom interactive video wrapper layout setup */
+.video-card-wrapper {
   margin-top: 15px;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 1.4;
-  padding: 0 5px;
+  width: 100%;
+  background: #fff5f7;
+  padding: 12px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
 }
-.music a { text-decoration:none; color:#e63946; }
-.music a:hover { text-decoration:underline; }
+
+.video-heading {
+  font-size: 13px;
+  font-weight: bold;
+  color: #e63946;
+  margin-bottom: 8px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Fixed clean 16:9 viewport ratio aspect locking */
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 
 .container-img {
   width: 100%;
@@ -170,13 +197,13 @@ button {
       
     </div>
 
-    <!-- Hidden Background YouTube Audio Player Context -->
-    <div id="music-container"></div>
-
-    <div class="music">
-      🎧 <a href="https://youtu.be" target="_blank">
-        A song dedicated for you: "Kusapiling" by full blast, Anthony meneses 💖
-      </a>
+    <!-- Interactive Embedded Video Player Box -->
+    <div class="video-card-wrapper">
+      <div class="video-heading">🎧 A song dedicated for you: "Kusapiling" by full blast, Anthony meneses</div>
+      <div class="video-container">
+        <!-- Native embedded iframe payload targeted using the clean track parameters directly -->
+        <iframe src="https://youtube.com" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
     </div>
 
     <!-- Button to go to Slide 3 -->
@@ -188,8 +215,7 @@ button {
 <div class="slide slide3" style="display:none;">
   <h2>YAYAYAYAYAYAYYYY!!! LOOKING FORWARD TO OUR JOURNEY CHLOE !!! 💖💐</h2>
   <div class="container-img">
-    <!-- Your fixed image address -->
-    <img src="https://i.imgur.com/1qEDkCh.jpeg" alt="Our Moment" class="embedded-img">
+    <img src="https://imgur.com" alt="For you" class="embedded-img">
   </div>
 </div>
 
@@ -217,16 +243,14 @@ function moveNoButton(){
   noBtn.style.top=`${y}px`;
 }
 
-// NO button behavior
 function handleNoClick(){
   noClickCount++;
   moveNoButton();
   if(noClickCount===1){
     noBtn.textContent="PRETTY PLEASE ☹️🥺";
   }
-  // Grow YES button with bounce
-  yesBtn.style.animation='none'; // reset animation
-  void yesBtn.offsetWidth; // trigger reflow
+  yesBtn.style.animation='none';
+  void yesBtn.offsetWidth;
   yesBtn.style.animation='bounce 0.3s';
   const style = window.getComputedStyle(yesBtn);
   const currentWidth = parseFloat(style.width);
@@ -235,26 +259,18 @@ function handleNoClick(){
   yesBtn.style.fontSize=`${parseFloat(style.fontSize)*1.1}px`;
 }
 
-// Event listeners for NO
 noBtn.addEventListener('click', handleNoClick);
 noBtn.addEventListener('touchstart', e=>{ e.preventDefault(); handleNoClick(); });
 
-// YES button shows letter and triggers background track
-yesBtn.addEventListener('click', ()=>{
+yesBtn.addEventListener('click', () => {
   valentineScreen.style.display='none';
   letterScreen.style.display='block';
-  
-  // Appends background iframe when user clicks "YES" (bypasses browser autoplay blocks)
-  const musicBox = document.getElementById('music-container');
-  musicBox.innerHTML = `<iframe width="0" height="0" src="https://youtube.com" frameborder="0" allow="autoplay; encrypted-media" style="display:none;"></iframe>`;
 });
 
-// Slide 2 → Slide 3
-next3.addEventListener('click', ()=>{
+next3.addEventListener('click', () => {
   letterScreen.style.display='none';
   slide3.style.display='block';
 
-  // Floating hearts on slide3
   for(let i=0;i<15;i++){
     const heart = document.createElement('div');
     heart.className='heart';
