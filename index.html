@@ -51,6 +51,8 @@ button {
   text-align: center;
   width: 90%;
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto; /* Adds scrolling for mobile if contents are tall */
 }
 
 .valentine-buttons { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:20px; }
@@ -76,7 +78,7 @@ button {
 .card {
   text-align: center;
   background: white;
-  padding: 40px;
+  padding: 30px 20px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   animation: fadeIn 2s ease;
@@ -84,7 +86,7 @@ button {
 }
 
 .message {
-  margin-top: 20px;
+  margin-top: 15px;
   padding: 15px;
   border-radius: 15px;
   background: #fff5f7;
@@ -92,6 +94,7 @@ button {
   color: #444;
   line-height: 1.5;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  text-align: left;
 }
 
 .music {
@@ -101,6 +104,14 @@ button {
 }
 .music a { text-decoration:none; color:#e63946; }
 .music a:hover { text-decoration:underline; }
+
+.embedded-img {
+  width: 200px;
+  max-width: 80%;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-top: 10px;
+}
 </style>
 </head>
 
@@ -119,17 +130,34 @@ button {
 <div class="slide letter-screen" style="display:none;">
   <div class="card">
     <h1>🌹 For Chloe Only 🌹</h1>
+
     <div class="message">
       Dear Chloe,<br><br>
       
-      <!-- WRITE YOUR NEW MESSAGE HERE -->
-      [Delete this line and type your own letter here!]
+      HEHEHE HALLO HALLO MY WIFEY, BABY, MI LOVE, HONHON, SWEET GIRL AND CHLOE KOOO!!<br><br>
+
+      i just wanna let you know na the day has finally come, i realized na none of this is infatuation and id say we're ready to move to the next lvl naaa !!!<br><br>
+
+      We've known each other for 1 week and 2 days na and unexpectedly this feelings of mine didn't change even a little. I can confidently say that na what I feel for you is genuine and real, I dunno if it's because the way you handle me especially my childlike behavior or something entirely different, but regardless i don't mind any of that.<br>
+      But yeah let's not make this message too long.<br><br>
+
+      Let me say this, you don't have to hold anything back here sa relationship natin we can go fast, we can go slow as long as you're comfortable and ofcourse don't mind what other people say because what I want the most is for you to be free and loved here and I would do anything for it.<br>
+      And I know this has been on your mind for a long time na, you're curious na why I treat you like a girlfriend na even though we're still not there yet? I think it's because that's how I see you from the start and I believe na as long as we're not anything it's fine right? That's why.<br><br>
+
+      I'll also make sure na if you choose me as your lover im confident na I can treat you right and better, but like I said even I can make mistakes from time to time and I want you to correct me or tell me how you want to be treated okay?<br><br>
+
+      If you're curious naman on how did I fall for you? Although I don't have the exact reason why but I can atleast tell you some pointers first of all you're caring, kind, understanding, matured and most of all so beautiful in a way that I myself don't even know to put it in words in short, you're perfect in my eyes po, you passed all my standards, no. You even exceeded it.<br><br>
+
+      And finally for my final say I hope I can treat you the way you want to be treated, And hope im enough hehe 🫶🫶🫶⚘️⚘️⚘️
       
     </div>
 
+    <!-- Hidden Background YouTube Audio Player Context -->
+    <div id="music-container"></div>
+
     <div class="music">
-      🎧 <a href="https://youtube.com" target="_blank">
-        Play our song: “Happiness” by Rex Orange County
+      🎧 <a href="https://youtu.be" target="_blank">
+        Playing our song link 💖
       </a>
     </div>
 
@@ -141,7 +169,8 @@ button {
 <!-- Slide 3 -->
 <div class="slide slide3" style="display:none;">
   <h2>YAYAYAYAYAYAYYYY!!! LOOKING FORWARD TO OUR JOURNEY CHLOE !!! 💖💐</h2>
-  <img src="https://imgur.com" alt="Yuki Bouquet" style="width:200px; max-width:80%; border-radius:15px;">
+  <!-- Your uploaded Imgur Image -->
+  <img src="https://imgur.com" alt="Our Moment" class="embedded-img">
 </div>
 
 <!-- Floating flowers -->
@@ -190,10 +219,14 @@ function handleNoClick(){
 noBtn.addEventListener('click', handleNoClick);
 noBtn.addEventListener('touchstart', e=>{ e.preventDefault(); handleNoClick(); });
 
-// YES button shows letter
+// YES button shows letter and triggers background track
 yesBtn.addEventListener('click', ()=>{
   valentineScreen.style.display='none';
   letterScreen.style.display='block';
+  
+  // Appends background iframe when user clicks "YES" (bypasses browser autoplay blocks)
+  const musicBox = document.getElementById('music-container');
+  musicBox.innerHTML = `<iframe width="0" height="0" src="https://youtube.com" frameborder="0" allow="autoplay; encrypted-media" style="display:none;"></iframe>`;
 });
 
 // Slide 2 → Slide 3
@@ -201,7 +234,7 @@ next3.addEventListener('click', ()=>{
   letterScreen.style.display='none';
   slide3.style.display='block';
 
-  // Optional: floating hearts on slide3
+  // Floating hearts on slide3
   for(let i=0;i<15;i++){
     const heart = document.createElement('div');
     heart.className='heart';
